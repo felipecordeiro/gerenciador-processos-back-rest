@@ -28,11 +28,12 @@ public class UsuarioResource {
 	private List<Usuario> usuarios = new ArrayList<>();
 
 	public UsuarioResource() {
-
+		carregaUsuarios();
+	}
+	private void carregaUsuarios() {
 		usuarios.add((new Usuario(1L, "administrador", "senha1", "João", Funcao.USUARIO_ADMINISTRADOR)));
 		usuarios.add((new Usuario(2L, "triador", "senha2", "Gabriela", Funcao.USUARIO_TRIADOR)));
 		usuarios.add((new Usuario(3L, "finalizador", "senha3", "Maria", Funcao.USUARIO_FINALIZADOR)));
-
 	}
 
 	@GET
