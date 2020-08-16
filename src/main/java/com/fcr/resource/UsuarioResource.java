@@ -35,8 +35,9 @@ public class UsuarioResource {
 	private void carregaUsuarios() {
 		// usado SHA256 para a password
 		// password do administrador é "senha1"
+		// password do triador é "senha2"
 		usuarios.add((new Usuario(1L, "administrador", "a991e84c62a25c5a972f67c47cd81f31063c2dde905a8428977b0458073465cd", "João", Funcao.USUARIO_ADMINISTRADOR)));
-		usuarios.add((new Usuario(2L, "triador", "senha2", "Gabriela", Funcao.USUARIO_TRIADOR)));
+		usuarios.add((new Usuario(2L, "triador", "02a3e1fc659a693124e09cc25a8b49249e126cbfa0dddf8f45d4dee4895bf81e", "Gabriela", Funcao.USUARIO_TRIADOR)));
 		usuarios.add((new Usuario(3L, "finalizador", "senha3", "Maria", Funcao.USUARIO_FINALIZADOR)));
 	}
 
@@ -63,6 +64,7 @@ public class UsuarioResource {
 		else {
 			usuario.setId(1L);
 		}
+		usuario.setPassword(DigestUtils.sha256Hex(usuario.getPassword()));
 		usuarios.add(usuario);
 		return Response.status(Status.CREATED).build();
 	}
