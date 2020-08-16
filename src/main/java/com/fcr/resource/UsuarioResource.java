@@ -56,8 +56,13 @@ public class UsuarioResource {
 
 	@POST
 	public Response save(Usuario usuario) {
-		long id = usuarios.get(usuarios.size() - 1).getId() + 1;
-		usuario.setId(id);
+		if (usuarios.size() > 0) {
+			long id = usuarios.get(usuarios.size() - 1).getId() + 1;
+			usuario.setId(id);
+		}
+		else {
+			usuario.setId(1L);
+		}
 		usuarios.add(usuario);
 		return Response.status(Status.CREATED).build();
 	}
