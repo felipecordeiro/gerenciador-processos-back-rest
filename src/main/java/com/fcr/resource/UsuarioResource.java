@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.fcr.modelo.enums.Funcao;
 import com.fcr.modelo.to.Usuario;
 
@@ -31,7 +33,8 @@ public class UsuarioResource {
 		carregaUsuarios();
 	}
 	private void carregaUsuarios() {
-		usuarios.add((new Usuario(1L, "administrador", "senha1", "João", Funcao.USUARIO_ADMINISTRADOR)));
+		// usado SHA256 para a senha
+		usuarios.add((new Usuario(1L, "administrador", "a991e84c62a25c5a972f67c47cd81f31063c2dde905a8428977b0458073465cd", "João", Funcao.USUARIO_ADMINISTRADOR)));
 		usuarios.add((new Usuario(2L, "triador", "senha2", "Gabriela", Funcao.USUARIO_TRIADOR)));
 		usuarios.add((new Usuario(3L, "finalizador", "senha3", "Maria", Funcao.USUARIO_FINALIZADOR)));
 	}
@@ -82,6 +85,28 @@ public class UsuarioResource {
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
 		}
+	}
+	
+	@POST
+	@Path("/validation")
+	public Response verificaUsuarioValido(Usuario usuarioParam) {
+		Response response = Response.status(Status.NOT_FOUND).build();
+		String sha256hex = DigestUtils.sha256Hex(usuarioParam.getPassword());
+		usuarioParam.setPassword(sha256hex);
+		for (Usuario usuario : usuarios) {
+			if (usuario.getLogin().equals(usuarioParam.getLogin()) && 
+					usuario.getPassword().equals(usuarioParam.getPassword())) {
+				Usuario obj = new Usuario();
+				obj.setId(usuario.getId());
+				obj.setLogin(usuario.getLogin());
+				obj.setFuncao(usuario.getFuncao());
+				obj.setNome(usuario.getNome());
+				// volta usuário sem o hash da password, o hash permanece apenas no back
+				response = Response.ok(obj).build();
+				break;
+			}
+		}
+		return response;
 	}
 
 }
