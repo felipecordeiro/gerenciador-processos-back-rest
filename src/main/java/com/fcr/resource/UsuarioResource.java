@@ -33,7 +33,8 @@ public class UsuarioResource {
 		carregaUsuarios();
 	}
 	private void carregaUsuarios() {
-		// usado SHA256 para a senha
+		// usado SHA256 para a password
+		// password do administrador é "senha1"
 		usuarios.add((new Usuario(1L, "administrador", "a991e84c62a25c5a972f67c47cd81f31063c2dde905a8428977b0458073465cd", "João", Funcao.USUARIO_ADMINISTRADOR)));
 		usuarios.add((new Usuario(2L, "triador", "senha2", "Gabriela", Funcao.USUARIO_TRIADOR)));
 		usuarios.add((new Usuario(3L, "finalizador", "senha3", "Maria", Funcao.USUARIO_FINALIZADOR)));
