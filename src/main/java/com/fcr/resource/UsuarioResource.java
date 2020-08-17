@@ -58,6 +58,11 @@ public class UsuarioResource {
 	@POST
 	public Response save(Usuario usuario) {
 		if (usuarios.size() > 0) {
+			for (Usuario obj : usuarios) {
+				if (usuario.getLogin().equals(obj.getLogin())) {
+					return Response.status(Status.CONFLICT).build();
+				}
+			}
 			long id = usuarios.get(usuarios.size() - 1).getId() + 1;
 			usuario.setId(id);
 		}
