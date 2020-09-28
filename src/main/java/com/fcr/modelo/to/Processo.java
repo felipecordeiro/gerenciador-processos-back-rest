@@ -2,6 +2,9 @@ package com.fcr.modelo.to;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Processo {
 
 	private Long id;
