@@ -39,9 +39,9 @@ public class ProcessoResource {
 	
 	private void carregaProcessos() {
 		carregaUsuarios();
-		processos.add((new Processo(1L, "Processo 1", "Descrição do Processo 1", true, usuarios)));
-		processos.add((new Processo(2L, "Processo 2", "Descrição do Processo 2", false, null)));
-		processos.add((new Processo(3L, "Processo 3", "Descrição do Processo 3", false, null)));
+		processos.add((new Processo(1L, "Processo 1", "Descrição do Processo 1", true, null, usuarios)));
+		processos.add((new Processo(2L, "Processo 2", "Descrição do Processo 2", false, "Teste descrição", null)));
+		processos.add((new Processo(3L, "Processo 3", "Descrição do Processo 3", false, "Teste descrição", null)));
 	}
 
 	@GET
@@ -85,6 +85,7 @@ public class ProcessoResource {
 			processos.get(processos.indexOf(processo)).setTitulo(processo.getTitulo());
 			processos.get(processos.indexOf(processo)).setDescricao(processo.getDescricao());
 			processos.get(processos.indexOf(processo)).setPendenteParecer(processo.getPendenteParecer());
+			processos.get(processos.indexOf(processo)).setDescricaoParecer(processo.getDescricaoParecer());
 			processos.get(processos.indexOf(processo)).setUsuarios(processo.getUsuarios());
 			return Response.status(Status.NO_CONTENT).build();
 		} else {
