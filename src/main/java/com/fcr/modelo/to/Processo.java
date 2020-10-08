@@ -11,14 +11,16 @@ public class Processo {
 	private String titulo;
 	private String descricao;
 	private Boolean pendenteParecer;
+	private String descricaoParecer;
 	private List<Usuario> usuarios;
 
-	public Processo(Long id, String titulo, String descricao, Boolean pendenteParecer, List<Usuario> usuarios) {
+	public Processo(Long id, String titulo, String descricao, Boolean pendenteParecer, String descricaoParecer, List<Usuario> usuarios) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.setPendenteParecer(pendenteParecer);
+		this.descricaoParecer = descricaoParecer;
 		this.usuarios = usuarios;
 	}
 
@@ -64,6 +66,14 @@ public class Processo {
 
 	public void setPendenteParecer(Boolean pendenteParecer) {
 		this.pendenteParecer = pendenteParecer;
+	}
+
+	public String getDescricaoParecer() {
+		return descricaoParecer;
+	}
+
+	public void setDescricaoParecer(String descricaoParecer) {
+		this.descricaoParecer = descricaoParecer;
 	}
 
 	@Override
